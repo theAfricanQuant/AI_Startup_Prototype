@@ -188,23 +188,23 @@ def charge():
 
 @app.route('/api/payFail', methods=['POST', 'GET'])
 def payFail():
-	content = request.json
-	stripe_email = content['data']['object']['email']
-	user = models.User.query.filter_by(email=stripe_email).first()
-	if user is not None: 
-		user.paid = 0
-		db.session.commit()
-		# do anything else, like execute shell command to disable user's service on your app
-	return "Response: User with associated email " + str(stripe_email) + " updated on our end (payment failure)."
+    content = request.json
+    stripe_email = content['data']['object']['email']
+    user = models.User.query.filter_by(email=stripe_email).first()
+    if user is not None: 
+    	user.paid = 0
+    	db.session.commit()
+    	# do anything else, like execute shell command to disable user's service on your app
+    return f"Response: User with associated email {str(stripe_email)} updated on our end (payment failure)."
 
 @app.route('/api/paySuccess', methods=['POST', 'GET'])
 def paySuccess():
-	content = request.json
-	stripe_email = content['data']['object']['email']
-	user = models.User.query.filter_by(email=stripe_email).first()
-	if user is not None: 
-		user.paid = 1
-		db.session.commit()
-		# do anything else on payment success, maybe send a thank you email or update more db fields?
-	return "Response: User with associated email " + str(stripe_email) + " updated on our end (paid)."
+    content = request.json
+    stripe_email = content['data']['object']['email']
+    user = models.User.query.filter_by(email=stripe_email).first()
+    if user is not None: 
+    	user.paid = 1
+    	db.session.commit()
+    	# do anything else on payment success, maybe send a thank you email or update more db fields?
+    return f"Response: User with associated email {str(stripe_email)} updated on our end (paid)."
 

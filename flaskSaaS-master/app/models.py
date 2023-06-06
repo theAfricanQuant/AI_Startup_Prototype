@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
 
     @property
     def full_name(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        return f'{self.first_name} {self.last_name}'
 
     @hybrid_property
     def password(self):
